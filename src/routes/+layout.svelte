@@ -32,7 +32,7 @@
 </main>
 
 <div class="background-gradient absolute inset-0 -z-50 max-h-screen" />
-<div class="pointer-event-none absolute inset-0 -z-40 h-full bg-[url('noisetexture.jpg')] 
+<div class="pointer-event-none absolute inset-0 -z-40 h-full bg-[url('/noisetexture.jpg')] 
 opacity-10 mix-blend-soft-light"></div>
 
 

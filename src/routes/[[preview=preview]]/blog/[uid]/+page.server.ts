@@ -10,7 +10,7 @@ export async function load({ params, fetch, cookies }) {
         title: page.data.title,
         meta_desscription: page.data.meta_description,
         meta_tital: page.data.meta_title || page.data.title,
-        meta_image: page.data.meta_image
+        meta_image: page.data.meta_image.url
 	};
 }
 
