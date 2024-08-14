@@ -10,7 +10,7 @@
 </script>
 
 <Bounded as="footer" class="text-slate-600">
-    <div class="container mx-auto flex mt-20 flex-col items-cetner justify-between gap-6 py-8 sm:flex-row">
+    <div class="container mx-auto flex mt-20 flex-col items-center justify-between gap-6 py-8 sm:flex-row">
         <div class="name flex flex-col items-center justify-center gap-x-4 gap-y-2 sm:flex-row sm:justify-self-start">
 
             <a href="/" class="text-xl font-extrabold tracking-tighter text-slate-100 transition-color 
@@ -50,7 +50,7 @@
                 {/each}
             </ul>
 
-        </nav>
+        </nav>  
         <div class="socials inline-flex justify-center sm:justify-end">
             {#if isFilled.link(settings.data.github_link)}
                 <PrismicLink 
