@@ -8,6 +8,14 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Header from '$lib/components/Header.svelte';
 
+	//integration with vercel web analytic
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+ 
+	inject({ mode: dev ? 'development' : 'production' });
+	injectSpeedInsights();
+
 	export let data;
 </script>
 
