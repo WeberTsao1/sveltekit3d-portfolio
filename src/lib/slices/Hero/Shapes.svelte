@@ -30,7 +30,7 @@
 
 <Environment files="smallroom.hdr" path="/" format="hdr" />
 
-<ContactShadows position={[0, -3.5, 0]} opacity={0.7} scale={40} blur={1} far={9} />
+<ContactShadows position={[0, -3.4, 0]} opacity={0.6} scale={40} blur={1} far={9} />
 
 <!-- Diamond-->
 <Geometry position={[0, 0, 0]} rate={0.3} geometry={new THREE.OctahedronGeometry(3)} />
