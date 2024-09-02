@@ -70,7 +70,7 @@
 				<Scene/>
 			</div>
 			
-			<div class="col-start-1 md:row-start-1 select-none">
+			<div class="mt-5 md:mt-0 col-start-1 md:row-start-1 select-none">
 				<h1 class="mb-2 md:mb-2 text-[clamp(3rem,20vmin,13rem)] font-extrabold 
 					leading-none tracking-tighter text-nowrap"
 					aria-label={slice.primary.first_name + ' ' + slice.primary.last_name}
