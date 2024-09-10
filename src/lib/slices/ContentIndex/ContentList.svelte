@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {
+		asDate,
 		asImageSrc,
 		isFilled,
 		type Content,
@@ -19,10 +20,31 @@
 	export let fallbackItemImage: ImageField;
 	export let expand: KeyTextField = 'Expand';
 
+	// Function for sorting posts in chronological order with newer posts displaying at the top
+	function sortPostsByDate(
+		posts: Content.BlogpostDocument[] | Content.ProjectDocument[]
+	): typeof posts {
+		return posts.slice().sort((a, b) => {
+			// Use asDate to convert Prismic DateField into javascript date object
+			const dateA = asDate(a.data.date);
+			const dateB = asDate(b.data.date);
+			if (dateA && dateB) {
+				return dateB.getTime() - dateA.getTime();
+			} else {
+				return 0;
+			}
+		});
+	}
+
+	// Sort the posts in chronological order
+	let sortedItems = sortPostsByDate(items);
+
 	let lastMousePos = { x: 0, y: 0 };
 	let currentIndex: number | undefined;
-	$: contentImages = items.map((item) => {
-		const image = isFilled.image(item.data.hover_image) ? item.data.hover_image : fallbackItemImage;
+	$: contentImages = sortedItems.map((sortedItem) => {
+		const image = isFilled.image(sortedItem.data.hover_image)
+			? sortedItem.data.hover_image
+			: fallbackItemImage;
 		return asImageSrc(image, {
 			fit: 'crop',
 			w: 220,
@@ -31,7 +53,7 @@
 		});
 	});
 
-	const onItemEnter: Action<HTMLElement, number> = (node, index) => {
+	const onItemEnter: Action<HTMLElement, number> = (node, index: number) => {
 		gsap.fromTo(
 			node,
 			{
@@ -81,11 +103,11 @@
 		});
 
 		gsap.to('.hover-reveal', {
-			opacity: currentIndex === undefined ? 0: 1,
+			opacity: currentIndex === undefined ? 0 : 1,
 			visibility: 'visible',
 			ease: 'power3.out',
 			duration: 0.8
-		})
+		});
 
 		lastMousePos = mousePos;
 	};
@@ -101,8 +123,9 @@
 
 <svelte:window on:mousemove={handleMouseMove} />
 
+<!-- list of posts -->
 <ul on:mouseleave={onMouseLeave} class="grid border-b border-b-slate-100">
-	{#each items as post, index (post.id + index)}
+	{#each sortedItems as post, index (post.id + index)}
 		<li
 			on:mouseenter={() => onMouseEnter(index)}
 			class="content-list-item opacity-0"
@@ -131,8 +154,9 @@
 	{/each}
 </ul>
 
-<!--hover elemetn-->
+<!--hover image element-->
 <div
 	class="hover-reveal pointer-events-none absolute left-0 top-0 -z-10 h-[320px] w-[220px] rounded-lg bg-cover bg-center opacity-0 transition-[background] duration-300"
 	style={currentIndex === undefined ? '' : `background-image: url(${contentImages[currentIndex]})`}
+	aria-label="Hover image that follows the cursor"
 ></div>
